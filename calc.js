@@ -40,17 +40,29 @@ var button = document.getElementsByTagName('button');
 for (i=0; i < button.length; i++){
 	button[i].onclick = function() {
 		if (isNaN(this.innerHTML) === false){
-			console.log(this.innerHTML);
-			box.value += parseInt(this.innerHTML);
+			if (clearBox === true){
+				clearBox = false;
+				box.value = '';
+				box.value += parseFloat(this.innerHTML);
+			} else {
+				box.value += parseFloat(this.innerHTML);
+			}
 		}
 	}
 }
 
-add.addEventListener('click', function(){
+add.addEventListener('click', addition)
+sub.addEventListener('click', subtraction)
+multi.addEventListener('click', multiplication)
+div.addEventListener('click', division)
+solve.addEventListener('click', solving)
+
+
+function addition(){
 	if (isNaN(box.value) === true){
 		alert('Please enter a number');
 	} else {
-		numbers.push(parseInt(box.value));
+		numbers.push(parseFloat(box.value));
 		clearBox = true;
 		console.log(clearBox)
 		if ((sign === '') || (sign === '+')) {
@@ -61,7 +73,7 @@ add.addEventListener('click', function(){
 			if ((numbers.length>= 2) && (sign = '+')) {
 				console.log('you are in the else if of the add')
 				box.value = (numbers[numbers.length-2]) + (numbers[numbers.length-1]);
-				numbers.push(parseInt(box.value));
+				numbers.push(parseFloat(box.value));
 				numbers.splice(0,1);
 				console.log(numbers);
 			} 
@@ -73,13 +85,13 @@ add.addEventListener('click', function(){
 			sign = '+';
 		}
 	}
-})
+}
 
-sub.addEventListener('click', function(){
+function subtraction(){
 	if (isNaN(box.value) === true){
 		alert('Please enter a number');
 	} else {
-		numbers.push(parseInt(box.value));
+		numbers.push(parseFloat(box.value));
 		clearBox = true;
 		if ((sign === '') || (sign === '-')) {
 			sign = '-';
@@ -88,7 +100,7 @@ sub.addEventListener('click', function(){
 
 				console.log('you are in the else if of the subtraction')
 				box.value = (numbers[numbers.length-2]) - (numbers[numbers.length-1]);
-				numbers.push(parseInt(box.value));
+				numbers.push(parseFloat(box.value));
 				numbers.splice(0,1);
 				console.log(numbers);
 
@@ -102,13 +114,13 @@ sub.addEventListener('click', function(){
 			sign = '-';
 		}
 	}
-})
+}
 
-multi.addEventListener('click', function(){
+function multiplication(){
 	if (isNaN(box.value) === true){
 		alert('Please enter a number');
 	} else {
-		numbers.push(parseInt(box.value));
+		numbers.push(parseFloat(box.value));
 		clearBox = true;
 		if ((sign === '') || (sign === 'x')) {
 			sign = 'x';
@@ -117,7 +129,7 @@ multi.addEventListener('click', function(){
 
 				console.log('you are in the else if of the Multiplication')
 				box.value = (numbers[numbers.length-2]) * (numbers[numbers.length-1]);
-				numbers.push(parseInt(box.value));
+				numbers.push(parseFloat(box.value));
 				numbers.splice(0,1);
 				console.log(numbers);
 
@@ -131,13 +143,13 @@ multi.addEventListener('click', function(){
 			sign = 'x';
 		}
 	}
-})
+}
 
-div.addEventListener('click', function(){
+function division(){
 	if (isNaN(box.value) === true){
 		alert('Please enter a number');
 	} else {
-		numbers.push(parseInt(box.value));
+		numbers.push(parseFloat(box.value));
 		clearBox = true;
 		if ((sign === '') || (sign === '/')) {
 			sign = '/';
@@ -146,7 +158,7 @@ div.addEventListener('click', function(){
 
 				console.log('you are in the else if of the subtraction')
 				box.value = ((numbers[numbers.length-2]) / (numbers[numbers.length-1]));
-				numbers.push(parseInt(box.value));
+				numbers.push(parseFloat(box.value));
 				numbers.splice(0,1);
 				console.log(numbers);
 
@@ -160,14 +172,14 @@ div.addEventListener('click', function(){
 			sign = '/';
 		}
 	}
-})
+}
 
-solve.addEventListener('click', function(){
-	numbers.push(parseInt(box.value));
+function solving(){
+	numbers.push(parseFloat(box.value));
 	solution();
 	clear();
 	clearBox = true;
-});
+}
 	
 
 function solution(){
@@ -178,19 +190,19 @@ function solution(){
 
 		if (sign === '+'){
 			box.value = (numbers[numbers.length-2]) + (numbers[numbers.length-1]);
-			numbers.push(parseInt(box.value));
+			numbers.push(parseFloat(box.value));
 
 		} else if (sign === '-'){
 			box.value = (numbers[numbers.length-2]) - (numbers[numbers.length-1]);
-			numbers.push(parseInt(box.value));
+			numbers.push(parseFloat(box.value));
 
 		} else if (sign === '/'){
 			box.value = ((numbers[numbers.length-2]) / (numbers[numbers.length-1]));
-			numbers.push(parseInt(box.value));
+			numbers.push(parseFloat(box.value));
 
 		} else if (sign === 'x'){
 			box.value = numbers[numbers.length-2] * numbers[numbers.length-1];
-			numbers.push(parseInt(box.value));
+			numbers.push(parseFloat(box.value));
 		}
 		numbers.splice(0,1);
 		console.log('this is the numbers in the solution' + numbers)
@@ -213,7 +225,7 @@ var six = document.querySelector('#six');
 var seven = document.querySelector('#seven');
 var eight = document.querySelector('#eight');
 var nine = document.querySelector('#nine');
-
+var decimal = document.querySelector('#decimal')
 
 
 box.addEventListener('keydown', function(e){
@@ -250,6 +262,29 @@ box.addEventListener('keydown', function(e){
 	} else if ((e.keyCode === 57) || (e.keyCode === 105)){
 		nine.setAttribute('class', 'press');
 	
+	} else if ((e.keyCode === 107)){
+		add.setAttribute('class', 'press');
+		addition();
+	
+	} else if ((e.keyCode === 109)){
+		sub.setAttribute('class', 'press');
+		subtraction();
+
+	} else if ((e.keyCode === 106)){
+		multi.setAttribute('class', 'press');
+		multiplication();
+
+	} else if ((e.keyCode === 111) || (e.keyCode === 220)){
+		div.setAttribute('class', 'press');
+		division();
+
+	} else if ((e.keyCode === 13) || (e.keyCode === 187)){
+		solve.setAttribute('class', 'press');
+		solving();
+		
+	} else if ((e.keyCode === 110)){
+		solve.setAttribute('class', 'press');
+		
 	} else {
 		return;
 	}
