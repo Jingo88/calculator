@@ -265,25 +265,30 @@ box.addEventListener('keydown', function(e){
 	} else if ((e.keyCode === 107)){
 		add.setAttribute('class', 'press');
 		addition();
+		e.preventDefault();
 	
 	} else if ((e.keyCode === 109)){
 		sub.setAttribute('class', 'press');
 		subtraction();
+		e.preventDefault();
 
 	} else if ((e.keyCode === 106)){
 		multi.setAttribute('class', 'press');
 		multiplication();
+		e.preventDefault();
 
 	} else if ((e.keyCode === 111) || (e.keyCode === 220)){
 		div.setAttribute('class', 'press');
 		division();
+		e.preventDefault();
 
 	} else if ((e.keyCode === 13) || (e.keyCode === 187)){
 		solve.setAttribute('class', 'press');
 		solving();
+		e.preventDefault();
 		
 	} else if ((e.keyCode === 110)){
-		solve.setAttribute('class', 'press');
+		decimal.setAttribute('class', 'press');
 		
 	} else {
 		return;
