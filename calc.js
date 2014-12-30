@@ -1,30 +1,8 @@
-//what if the user wants to add/sub more than two numbers? 
-//add if statements to the add/sub/multi/div event listeners?
-//that way it can keep doing the math as the buttons are clicked?
-//the solve will just clear out the array and the sign? 
-//add 3d buttons
-
-//when you keep pressing the plus button
-//the solution should become the first number, and the second should be the new number.
-//or we could use splice and cut them out as we go? 
-
-//what if you did a if the sign is not empty, that way you can target more shit. 
-
-//maybe don't clear the box on the plus's and what not
-//add a clear button?  
-//parsefloat?
-//make the box.value always the last number in the array
-// make the clear button so you have something to clear it with. 
-
-//dividing something, and then using another symbol does not work it just adds the number to
-//the box value in a string
-//have you make it so when the numbers click it clears the value in the box
-
-//if solved set something to true, and then sets to false. 
-//when using equal or math symbol make boolean true. 
-//whenever a number is clicked make boolean false
-//when the boolean is true box.value can be overridden
-
+//the numbers are stored and splice in the array as the user runs the math
+//the sign determines what equation to run in the if/else solution below
+//created a true false boolean, this allows the user to keep the box value visible
+//and at each click of equal, or any other math symbol, the boolean becomes true
+//an if statement in the clicking of the numbers allows us to autoclear the box.value if the boolean is true
 var sign = '';
 var numbers = [];
 var clearBox = false;
@@ -37,6 +15,7 @@ var multi = document.querySelector('#multiply');
 var solve = document.querySelector('#equal');
 var button = document.getElementsByTagName('button');
 
+//targets the buttons on click, and adds the numbers to the box.value
 for (i=0; i < button.length; i++){
 	button[i].onclick = function() {
 		if (isNaN(this.innerHTML) === false){
@@ -51,36 +30,31 @@ for (i=0; i < button.length; i++){
 	}
 }
 
+//could not make anonymous functions in event listener because the functions
+//are also called during the mouse clicking the buttons, or on specific keyboard actions
 add.addEventListener('click', addition)
 sub.addEventListener('click', subtraction)
 multi.addEventListener('click', multiplication)
 div.addEventListener('click', division)
 solve.addEventListener('click', solving)
 
-
+//not very DRY but works. 
 function addition(){
+	//makes sure it is a number
 	if (isNaN(box.value) === true){
 		alert('Please enter a number');
 	} else {
+		//adds the number in the input box to the numbers array
 		numbers.push(parseFloat(box.value));
 		clearBox = true;
-		console.log(clearBox)
 		if ((sign === '') || (sign === '+')) {
 			sign = '+';
-			console.log('first if in the add event listener');
-			console.log(sign)
-			console.log(numbers)
 			if ((numbers.length>= 2) && (sign = '+')) {
-				console.log('you are in the else if of the add')
 				box.value = (numbers[numbers.length-2]) + (numbers[numbers.length-1]);
 				numbers.push(parseFloat(box.value));
 				numbers.splice(0,1);
-				console.log(numbers);
 			} 
 		} else if ((sign != '+') && (sign != '')){
-			console.log(sign);
-			console.log(numbers);
-			console.log('blah blah first if')
 			solution();
 			sign = '+';
 		}
@@ -97,19 +71,12 @@ function subtraction(){
 			sign = '-';
 
 			if ((numbers.length>= 2) && (sign = '-')) {
-
-				console.log('you are in the else if of the subtraction')
 				box.value = (numbers[numbers.length-2]) - (numbers[numbers.length-1]);
 				numbers.push(parseFloat(box.value));
 				numbers.splice(0,1);
-				console.log(numbers);
-
 			} 
 
 		} else if ((sign != '-') && (sign != '')){
-			console.log(sign);
-			console.log(numbers);
-			console.log('blah blah first if')
 			solution();
 			sign = '-';
 		}
@@ -126,19 +93,12 @@ function multiplication(){
 			sign = 'x';
 
 			if ((numbers.length>= 2) && (sign = 'x')) {
-
-				console.log('you are in the else if of the Multiplication')
 				box.value = (numbers[numbers.length-2]) * (numbers[numbers.length-1]);
 				numbers.push(parseFloat(box.value));
 				numbers.splice(0,1);
-				console.log(numbers);
-
 			} 
 
 		} else if ((sign != 'x') && (sign != '')){
-			console.log(sign);
-			console.log(numbers);
-			console.log('blah blah first if')
 			solution();
 			sign = 'x';
 		}
@@ -155,19 +115,12 @@ function division(){
 			sign = '/';
 
 			if ((numbers.length>= 2) && (sign = '/')) {
-
-				console.log('you are in the else if of the subtraction')
 				box.value = ((numbers[numbers.length-2]) / (numbers[numbers.length-1]));
 				numbers.push(parseFloat(box.value));
 				numbers.splice(0,1);
-				console.log(numbers);
-
 			} 
 
 		} else if ((sign != '/') && (sign != '')){
-			console.log(sign);
-			console.log(numbers);
-			console.log('blah blah first if')
 			solution();
 			sign = '/';
 		}
@@ -205,7 +158,6 @@ function solution(){
 			numbers.push(parseFloat(box.value));
 		}
 		numbers.splice(0,1);
-		console.log('this is the numbers in the solution' + numbers)
 	}
 }
 
@@ -214,7 +166,7 @@ function clear(){
 	numbers = [];
 }
 
-
+//query select the numbers needed for the keydown commands
 var zero = document.querySelector('#zero')
 var one = document.querySelector('#one');
 var two = document.querySelector('#two');
@@ -227,7 +179,7 @@ var eight = document.querySelector('#eight');
 var nine = document.querySelector('#nine');
 var decimal = document.querySelector('#decimal')
 
-
+//when specific keyboard buttons are pressed, it will activate the 3d css animation style
 box.addEventListener('keydown', function(e){
 	if (clearBox === true){
 		clearBox = false;
@@ -266,7 +218,8 @@ box.addEventListener('keydown', function(e){
 		add.setAttribute('class', 'press');
 		addition();
 		e.preventDefault();
-	
+// the e.preventDefault() allows the user to use the special key buttons
+//such as the add and subtract buttons, without inputing in 
 	} else if ((e.keyCode === 109)){
 		sub.setAttribute('class', 'press');
 		subtraction();
@@ -295,18 +248,13 @@ box.addEventListener('keydown', function(e){
 	}
 })
 
+
+//on keyup you want to remove that c
 box.addEventListener('keyup', function(){
 	for (i=0; i < button.length; i++){
 		button[i].removeAttribute('class', 'press');
 	}
 })
-
-
-
-
-
-
-
 
 
 
