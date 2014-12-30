@@ -1,0 +1,104 @@
+#face{
+	/*margin: 0 auto;*/
+	position:absolute;
+	top: 0;
+	width: 100%;
+	text-align: center;
+	background-color: #9c8b34;
+	border-radius: 50%;
+	height: 1000px;
+	/*width: 1000px;*/
+}
+
+#bandana{
+	margin: 0 auto;
+	height: 100px;
+	background-color: black;
+	border-radius: 100px 100px 0px 0px ;
+	width: 900px;
+}
+
+h1 {
+	color: white;
+	text-decoration: underline;
+	font-style: italic;
+	font-weight: 900;
+	margin-top: 2%;
+	/*background-color: black;
+	border-top: 40px solid black;
+	border-bottom: 40px solid black;*/
+}
+
+
+/*Button CSS*/
+button {
+	margin-top: 20px;
+	margin-left: 10px;
+	margin-right: 10px;
+	height: 25px;
+	border: 3px solid black;
+	margin-bottom: 20px;
+}
+
+button:hover {
+	margin-left: 10px;
+	margin-right: 10px;
+	height: 25px;
+	border: 3px solid blue;
+	background-color: white;
+	color: blue;
+	border-radius: 3px;
+	-moz-box-shadow: 0px 9px 13px 0px blue;
+	-webkit-box-shadow: 0px 9px 13px 0px blue;
+	box-shadow: 0px 9px 13px 0px blue;
+}
+
+
+/*CSS for problem section*/
+.problem{
+	position: absolute;
+	height: 100px;
+	margin: 0 auto;
+	left: 21.5%;
+}
+
+.user {
+	float: left;
+}
+
+#firstnum, #secondnum {
+	border-radius: 50%;
+	height: 120px;
+	width: 350px;
+	margin-bottom: 20px;
+	font-size: 40px;
+	text-align: center;
+	border: 6px solid black;
+	outline: 0;
+}
+
+#symbol {
+	width: 120px;
+	height: 120px;
+}
+
+#equal {
+	height: 20%;
+	width: 10%;
+	margin-top: 150px;
+	left: 40%;
+}
+
+#answer {
+	text-align: center;
+	border-radius: 60%;
+	margin-top: 80px;
+	border: 7px solid red;
+	font-size: 50px;
+}
+
+
+
+
+
+
