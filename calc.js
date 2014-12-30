@@ -19,9 +19,15 @@
 //dividing something, and then using another symbol does not work it just adds the number to
 //the box value in a string
 //have you make it so when the numbers click it clears the value in the box
+
+//if solved set something to true, and then sets to false. 
+//when using equal or math symbol make boolean true. 
+//whenever a number is clicked make boolean false
+//when the boolean is true box.value can be overridden
+
 var sign = '';
 var numbers = [];
-var userNum = [];
+var clearBox = false;
 
 var box = document.querySelector('#inputBox');
 var add = document.querySelector('#add');
@@ -30,10 +36,6 @@ var div = document.querySelector('#divide');
 var multi = document.querySelector('#multiply');
 var solve = document.querySelector('#equal');
 var button = document.getElementsByTagName('button');
-
-
-console.log(button.length)
-console.log(button)
 
 for (i=0; i < button.length; i++){
 	button[i].onclick = function() {
@@ -49,18 +51,20 @@ add.addEventListener('click', function(){
 		alert('Please enter a number');
 	} else {
 		numbers.push(parseInt(box.value));
-
+		clearBox = true;
+		console.log(clearBox)
 		if ((sign === '') || (sign === '+')) {
 			sign = '+';
+			console.log('first if in the add event listener');
+			console.log(sign)
+			console.log(numbers)
 			if ((numbers.length>= 2) && (sign = '+')) {
 				console.log('you are in the else if of the add')
 				box.value = (numbers[numbers.length-2]) + (numbers[numbers.length-1]);
 				numbers.push(parseInt(box.value));
 				numbers.splice(0,1);
 				console.log(numbers);
-			} else {
-				box.value = '';
-			}	
+			} 
 		} else if ((sign != '+') && (sign != '')){
 			console.log(sign);
 			console.log(numbers);
@@ -76,7 +80,7 @@ sub.addEventListener('click', function(){
 		alert('Please enter a number');
 	} else {
 		numbers.push(parseInt(box.value));
-
+		clearBox = true;
 		if ((sign === '') || (sign === '-')) {
 			sign = '-';
 
@@ -88,9 +92,7 @@ sub.addEventListener('click', function(){
 				numbers.splice(0,1);
 				console.log(numbers);
 
-			} else {
-				box.value = '';
-			}	
+			} 
 
 		} else if ((sign != '-') && (sign != '')){
 			console.log(sign);
@@ -107,7 +109,7 @@ multi.addEventListener('click', function(){
 		alert('Please enter a number');
 	} else {
 		numbers.push(parseInt(box.value));
-
+		clearBox = true;
 		if ((sign === '') || (sign === 'x')) {
 			sign = 'x';
 
@@ -119,9 +121,7 @@ multi.addEventListener('click', function(){
 				numbers.splice(0,1);
 				console.log(numbers);
 
-			} else {
-				box.value = '';
-			}	
+			} 
 
 		} else if ((sign != 'x') && (sign != '')){
 			console.log(sign);
@@ -138,7 +138,7 @@ div.addEventListener('click', function(){
 		alert('Please enter a number');
 	} else {
 		numbers.push(parseInt(box.value));
-
+		clearBox = true;
 		if ((sign === '') || (sign === '/')) {
 			sign = '/';
 
@@ -150,9 +150,7 @@ div.addEventListener('click', function(){
 				numbers.splice(0,1);
 				console.log(numbers);
 
-			} else {
-				box.value = '';
-			}	
+			} 
 
 		} else if ((sign != '/') && (sign != '')){
 			console.log(sign);
@@ -168,8 +166,7 @@ solve.addEventListener('click', function(){
 	numbers.push(parseInt(box.value));
 	solution();
 	clear();
-	console.log('we are solving' + numbers);
-	console.log('solving sign' + sign);
+	clearBox = true;
 });
 	
 
@@ -206,24 +203,6 @@ function clear(){
 }
 
 
-
-
-// window.addEventListener("keydown", handlingkeys, true);
-
-
-// function handlingkeys(){
-//     var key = event.which;
-
-//     if (key === 37 && dir != 'right') {
-//       dir = 'left';
-//     } else if (key === 38 && dir != 'down') {
-//       dir = 'up';
-//     } else if (key === 39 && dir != 'left') {
-//       dir = 'right';
-//     } else if (key === 40 && dir != 'up') {
-//       dir = 'down';
-//     }
-// };
 var zero = document.querySelector('#zero')
 var one = document.querySelector('#one');
 var two = document.querySelector('#two');
@@ -235,7 +214,13 @@ var seven = document.querySelector('#seven');
 var eight = document.querySelector('#eight');
 var nine = document.querySelector('#nine');
 
+
+
 box.addEventListener('keydown', function(e){
+	if (clearBox === true){
+		clearBox = false;
+		box.value = '';
+	}
 	if ((e.keyCode === 48) || (e.keyCode === 96)){
 		zero.setAttribute('class', 'press');
 	} else if ((e.keyCode === 49) || (e.keyCode === 97)){
@@ -272,7 +257,7 @@ box.addEventListener('keydown', function(e){
 
 box.addEventListener('keyup', function(){
 	for (i=0; i < button.length; i++){
-		button[i].removeAttribute('class', 'blah');
+		button[i].removeAttribute('class', 'press');
 	}
 })
 
