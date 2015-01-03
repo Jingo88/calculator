@@ -3,6 +3,13 @@
 //created a true false boolean, this allows the user to keep the box value visible
 //and at each click of equal, or any other math symbol, the boolean becomes true
 //an if statement in the clicking of the numbers allows us to autoclear the box.value if the boolean is true
+
+//Julia wants to add a shift 8 function and a shift plus sign button... 
+//have the button press working, and the function getting activated
+//however, the star keeps appearing in the input box
+
+//also add a row on the top to clear the numbers. 
+
 var sign = '';
 var numbers = [];
 var clearBox = false;
@@ -14,6 +21,7 @@ var div = document.querySelector('#divide');
 var multi = document.querySelector('#multiply');
 var solve = document.querySelector('#equal');
 var button = document.getElementsByTagName('button');
+var clear = document.querySelector('#clear');
 
 //targets the buttons on click, and adds the numbers to the box.value
 for (i=0; i < button.length; i++){
@@ -37,6 +45,7 @@ sub.addEventListener('click', subtraction)
 multi.addEventListener('click', multiplication)
 div.addEventListener('click', division)
 solve.addEventListener('click', solving)
+clear.addEventListener('click', clearButton)
 
 //not very DRY but works. 
 function addition(){
@@ -84,6 +93,7 @@ function subtraction(){
 }
 
 function multiplication(){
+	console.log('you got to multiply function')
 	if (isNaN(box.value) === true){
 		alert('Please enter a number');
 	} else {
@@ -166,6 +176,13 @@ function clear(){
 	numbers = [];
 }
 
+function clearButton(){
+	sign = '';
+	numbers = [];
+	clearBox = false;
+	box.value = '';
+}
+
 //query select the numbers needed for the keydown commands
 var zero = document.querySelector('#zero')
 var one = document.querySelector('#one');
@@ -187,6 +204,27 @@ box.addEventListener('keydown', function(e){
 	}
 	if ((e.keyCode === 48) || (e.keyCode === 96)){
 		zero.setAttribute('class', 'press');
+
+	} else if (e.keyCode === 56 && e.shiftKey){
+		multi.setAttribute('class', 'press');
+		multiplication();
+		e.preventDefault();
+
+	} else if (e.keyCode === 187 && e.shiftKey){
+		add.setAttribute('class', 'press');
+		addition();
+		e.preventDefault();
+
+	}  else if (e.keyCode === 189){
+		sub.setAttribute('class', 'press');
+		subtraction();
+		e.preventDefault();
+
+	} else if (e.keyCode === 191){
+		div.setAttribute('class', 'press');
+		division();
+		e.preventDefault();
+
 	} else if ((e.keyCode === 49) || (e.keyCode === 97)){
 		one.setAttribute('class', 'press');
 
@@ -230,12 +268,7 @@ box.addEventListener('keydown', function(e){
 		multiplication();
 		e.preventDefault();
 
-	} else if ((e.keyCode === 111) || (e.keyCode === 220)){
-		div.setAttribute('class', 'press');
-		division();
-		e.preventDefault();
-
-	} else if ((e.keyCode === 13) || (e.keyCode === 187)){
+	}else if ((e.keyCode === 13) || (e.keyCode === 187)){
 		solve.setAttribute('class', 'press');
 		solving();
 		e.preventDefault();
