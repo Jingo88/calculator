@@ -4,11 +4,9 @@
 //and at each click of equal, or any other math symbol, the boolean becomes true
 //an if statement in the clicking of the numbers allows us to autoclear the box.value if the boolean is true
 
-//Julia wants to add a shift 8 function and a shift plus sign button... 
-//have the button press working, and the function getting activated
-//however, the star keeps appearing in the input box
-
-//also add a row on the top to clear the numbers. 
+//having trouble adding onto things after the enter key is pressed
+//only happens with keyboard pressing, not with the mouse. 
+//why does preventDefault() not run after the enter key is pressed?
 
 var sign = '';
 var numbers = [];
@@ -74,12 +72,18 @@ function subtraction(){
 	if (isNaN(box.value) === true){
 		alert('Please enter a number');
 	} else {
+		console.log('subtract in else');
 		numbers.push(parseFloat(box.value));
 		clearBox = true;
 		if ((sign === '') || (sign === '-')) {
 			sign = '-';
-
-			if ((numbers.length>= 2) && (sign = '-')) {
+			console.log('subtract first if');
+			console.log(numbers);
+			console.log(sign)
+			if (numbers.length === 2){
+				sign = '-';
+			} else if ((numbers.length> 2) && (sign = '-')) {
+				console.log('you are in the else if of subtration');
 				box.value = (numbers[numbers.length-2]) - (numbers[numbers.length-1]);
 				numbers.push(parseFloat(box.value));
 				numbers.splice(0,1);
@@ -140,11 +144,11 @@ function division(){
 function solving(){
 	numbers.push(parseFloat(box.value));
 	solution();
-	clear();
+	clearing();
 	clearBox = true;
 }
 	
-
+//fix solution function please motherfucker
 function solution(){
 	if (isNaN(box.value) === true){
 		alert('Please enter a number');
@@ -154,26 +158,39 @@ function solution(){
 		if (sign === '+'){
 			box.value = (numbers[numbers.length-2]) + (numbers[numbers.length-1]);
 			numbers.push(parseFloat(box.value));
+			console.log(numbers);
+			console.log(sign);
 
 		} else if (sign === '-'){
 			box.value = (numbers[numbers.length-2]) - (numbers[numbers.length-1]);
 			numbers.push(parseFloat(box.value));
+			console.log(numbers);
+			console.log(sign);
 
 		} else if (sign === '/'){
 			box.value = ((numbers[numbers.length-2]) / (numbers[numbers.length-1]));
 			numbers.push(parseFloat(box.value));
+			console.log(numbers);
+			console.log(sign);
 
 		} else if (sign === 'x'){
 			box.value = numbers[numbers.length-2] * numbers[numbers.length-1];
 			numbers.push(parseFloat(box.value));
+			console.log(numbers);
+			console.log(sign);
+
 		}
 		numbers.splice(0,1);
+		console.log(numbers);
+		console.log(sign);
+
 	}
 }
 
-function clear(){
+function clearing(){
 	sign = '';
-	numbers = [];
+	numbers.splice(0, numbers.length-1);
+	console.log(numbers)
 }
 
 function clearButton(){
@@ -268,7 +285,12 @@ box.addEventListener('keydown', function(e){
 		multiplication();
 		e.preventDefault();
 
-	}else if ((e.keyCode === 13) || (e.keyCode === 187)){
+	} else if (e.keyCode === 13){
+		solve.setAttribute('class', 'press');
+		solving();
+		e.preventDefault();
+		
+	} else if (e.keyCode === 187){
 		solve.setAttribute('class', 'press');
 		solving();
 		e.preventDefault();
