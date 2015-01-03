@@ -8,6 +8,11 @@
 //only happens with keyboard pressing, not with the mouse. 
 //why does preventDefault() not run after the enter key is pressed?
 
+//what is it adding to the array that is not a number?!?!?!?!
+//maybe prevent default is working and the functions are built incorrectly
+//and they are adding to the array incorrectly.
+
+
 var sign = '';
 var numbers = [];
 var clearBox = false;
@@ -33,8 +38,26 @@ for (i=0; i < button.length; i++){
 				box.value += parseFloat(this.innerHTML);
 			}
 		}
+
 	}
 }
+//tried to use this to remove the NaN's that happen after the preventDefault stopped working
+//and began to add NaN to the array
+
+
+// function removeNaN(){
+// 	if (numbers.length >= 1){
+	
+// 		for (n=0; n<numbers.length; n++){
+// 			if (numbers[n] = 'NaN'){
+// 				numbers.splice(numbers[n], 1);
+// 				console.log('does this shit work?');
+// 			} else {
+// 				return;
+// 		}
+// 	}
+// }
+// }
 
 //could not make anonymous functions in event listener because the functions
 //are also called during the mouse clicking the buttons, or on specific keyboard actions
@@ -56,7 +79,7 @@ function addition(){
 		clearBox = true;
 		if ((sign === '') || (sign === '+')) {
 			sign = '+';
-			if ((numbers.length>= 2) && (sign = '+')) {
+			if ((numbers.length> 2) && (sign = '+')) {
 				box.value = (numbers[numbers.length-2]) + (numbers[numbers.length-1]);
 				numbers.push(parseFloat(box.value));
 				numbers.splice(0,1);
@@ -80,9 +103,10 @@ function subtraction(){
 			console.log('subtract first if');
 			console.log(numbers);
 			console.log(sign)
-			if (numbers.length === 2){
-				sign = '-';
-			} else if ((numbers.length> 2) && (sign = '-')) {
+			// if (numbers.length === 2){
+			// 	sign = '-';
+			// } else
+			 if ((numbers.length> 2) && (sign = '-')) {
 				console.log('you are in the else if of subtration');
 				box.value = (numbers[numbers.length-2]) - (numbers[numbers.length-1]);
 				numbers.push(parseFloat(box.value));
@@ -94,6 +118,7 @@ function subtraction(){
 			sign = '-';
 		}
 	}
+	// removeNaN();
 }
 
 function multiplication(){
@@ -105,8 +130,9 @@ function multiplication(){
 		clearBox = true;
 		if ((sign === '') || (sign === 'x')) {
 			sign = 'x';
-
-			if ((numbers.length>= 2) && (sign = 'x')) {
+			console.log(numbers);
+			console.log(sign)
+			if ((numbers.length> 2) && (sign = 'x')) {
 				box.value = (numbers[numbers.length-2]) * (numbers[numbers.length-1]);
 				numbers.push(parseFloat(box.value));
 				numbers.splice(0,1);
@@ -128,7 +154,7 @@ function division(){
 		if ((sign === '') || (sign === '/')) {
 			sign = '/';
 
-			if ((numbers.length>= 2) && (sign = '/')) {
+			if ((numbers.length> 2) && (sign = '/')) {
 				box.value = ((numbers[numbers.length-2]) / (numbers[numbers.length-1]));
 				numbers.push(parseFloat(box.value));
 				numbers.splice(0,1);
@@ -189,7 +215,7 @@ function solution(){
 
 function clearing(){
 	sign = '';
-	numbers.splice(0, numbers.length-1);
+	numbers.splice(0, numbers.length-2);
 	console.log(numbers)
 }
 
@@ -231,11 +257,13 @@ box.addEventListener('keydown', function(e){
 		add.setAttribute('class', 'press');
 		addition();
 		e.preventDefault();
+		// return false;
 
 	}  else if (e.keyCode === 189){
 		sub.setAttribute('class', 'press');
 		subtraction();
 		e.preventDefault();
+		// return false;
 
 	} else if (e.keyCode === 191){
 		div.setAttribute('class', 'press');
@@ -288,7 +316,8 @@ box.addEventListener('keydown', function(e){
 	} else if (e.keyCode === 13){
 		solve.setAttribute('class', 'press');
 		solving();
-		e.preventDefault();
+		// e.preventDefault();
+		// return false;
 		
 	} else if (e.keyCode === 187){
 		solve.setAttribute('class', 'press');
