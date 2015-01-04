@@ -11,6 +11,9 @@
 //what is it adding to the array that is not a number?!?!?!?!
 //maybe prevent default is working and the functions are built incorrectly
 //and they are adding to the array incorrectly.
+//I think it is the prevent default because even if you try the (shift+8) it will not work properly.
+
+//now buttons are not working properly even when they are clicked with mouse after the enter key
 
 
 var sign = '';
@@ -94,6 +97,8 @@ function addition(){
 function subtraction(){
 	if (isNaN(box.value) === true){
 		alert('Please enter a number');
+	// } else if (box.value === ''){
+	// 	return;
 	} else {
 		console.log('subtract in else');
 		numbers.push(parseFloat(box.value));
@@ -103,9 +108,7 @@ function subtraction(){
 			console.log('subtract first if');
 			console.log(numbers);
 			console.log(sign)
-			// if (numbers.length === 2){
-			// 	sign = '-';
-			// } else
+
 			 if ((numbers.length> 2) && (sign = '-')) {
 				console.log('you are in the else if of subtration');
 				box.value = (numbers[numbers.length-2]) - (numbers[numbers.length-1]);
@@ -118,7 +121,6 @@ function subtraction(){
 			sign = '-';
 		}
 	}
-	// removeNaN();
 }
 
 function multiplication(){
@@ -215,7 +217,7 @@ function solution(){
 
 function clearing(){
 	sign = '';
-	numbers.splice(0, numbers.length-2);
+	numbers.splice(0, numbers.length-1);
 	console.log(numbers)
 }
 
