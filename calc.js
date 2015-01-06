@@ -11,9 +11,17 @@
 //what is it adding to the array that is not a number?!?!?!?!
 //maybe prevent default is working and the functions are built incorrectly
 //and they are adding to the array incorrectly.
+
+
 //I think it is the prevent default because even if you try the (shift+8) it will not work properly.
 
-//now buttons are not working properly even when they are clicked with mouse after the enter key
+//What if you added if else statements to the keyCode for the enter key
+//it will activate the functions based off the specific signs
+
+//back to thinking it is not prevent default. the same problem with the enter key and keypresses happens with the
+//equal key as well.
+
+//might be something wrong with the solving function
 
 
 var sign = '';
@@ -78,7 +86,12 @@ function addition(){
 		alert('Please enter a number');
 	} else {
 		//adds the number in the input box to the numbers array
-		numbers.push(parseFloat(box.value));
+		if (numbers.length >= 1){
+			box.value = numbers[numbers.length-1];
+			numbers.push(parseFloat(box.value));
+		} else {
+			numbers.push(parseFloat(box.value));	
+		}
 		clearBox = true;
 		if ((sign === '') || (sign === '+')) {
 			sign = '+';
@@ -101,7 +114,12 @@ function subtraction(){
 	// 	return;
 	} else {
 		console.log('subtract in else');
-		numbers.push(parseFloat(box.value));
+		if (numbers.length >= 1){
+			box.value = numbers[numbers.length-1];
+			numbers.push(parseFloat(box.value));
+		} else {
+			numbers.push(parseFloat(box.value));	
+		}
 		clearBox = true;
 		if ((sign === '') || (sign === '-')) {
 			sign = '-';
@@ -128,7 +146,18 @@ function multiplication(){
 	if (isNaN(box.value) === true){
 		alert('Please enter a number');
 	} else {
-		numbers.push(parseFloat(box.value));
+		console.log(numbers);
+
+		//THIS DAMN PUSH
+		//it is pushing nothing after the enter/equal sign is pressed. 
+		if (numbers.length >= 1){
+			box.value = numbers[numbers.length-1];
+			numbers.push(parseFloat(box.value));
+		} else {
+			numbers.push(parseFloat(box.value));	
+		}
+		
+		//this is adding NaN to the array because there is no number to add
 		clearBox = true;
 		if ((sign === '') || (sign === 'x')) {
 			sign = 'x';
@@ -151,7 +180,12 @@ function division(){
 	if (isNaN(box.value) === true){
 		alert('Please enter a number');
 	} else {
-		numbers.push(parseFloat(box.value));
+		if (numbers.length >= 1){
+			box.value = numbers[numbers.length-1];
+			numbers.push(parseFloat(box.value));
+		} else {
+			numbers.push(parseFloat(box.value));	
+		}
 		clearBox = true;
 		if ((sign === '') || (sign === '/')) {
 			sign = '/';
@@ -173,7 +207,11 @@ function solving(){
 	numbers.push(parseFloat(box.value));
 	solution();
 	clearing();
+	// numbers.push(parseFloat(box.value));
 	clearBox = true;
+	console.log(numbers);
+	console.log(sign);
+	console.log(clearBox)
 }
 	
 //fix solution function please motherfucker
@@ -250,7 +288,7 @@ box.addEventListener('keydown', function(e){
 	if ((e.keyCode === 48) || (e.keyCode === 96)){
 		zero.setAttribute('class', 'press');
 
-	} else if (e.keyCode === 56 && e.shiftKey){
+	} else if (e.shiftKey && e.keyCode === 56){
 		multi.setAttribute('class', 'press');
 		multiplication();
 		e.preventDefault();
@@ -318,19 +356,21 @@ box.addEventListener('keydown', function(e){
 	} else if (e.keyCode === 13){
 		solve.setAttribute('class', 'press');
 		solving();
-		// e.preventDefault();
-		// return false;
+		e.preventDefault();
+		return false;
 		
 	} else if (e.keyCode === 187){
 		solve.setAttribute('class', 'press');
 		solving();
 		e.preventDefault();
+		return false;
 		
 	} else if ((e.keyCode === 110)){
 		decimal.setAttribute('class', 'press');
 		
 	} else {
-		return;
+		e.preventDefault();
+		return false;
 	}
 })
 
